@@ -24,27 +24,23 @@ function CreateComment() {
         }
     }
 
-    return <><div>Foro</div>
-        <form className="row" onSubmit={(e) => handleSubmit(e)}>
-            <div className="col col-md-auto">
-                <label htmlFor="commentario" className="form-label">Comentario:</label>
-            </div>
-            <div className="col-6">
-                <div className="input-group has-validation">
-                    <input type="text" className="form-control" id="id"
-                        onChange={e => handleChange(e)} required maxLength="200" />
+    return <>
+        <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="container">
+            <div className="row justify-content-md-center">
+                <div className="col-8">
+                    <div className="input-group has-validation">
+                        <input type="text" className="form-control" id="id" placeholder="Ingrese su comentario"
+                            onChange={e => handleChange(e)} required maxLength="200" />
+                    </div>
+                </div>
+                <div className="col-auto mb-3">
+                    <button className="btn btn-success" type="submit">Enviar</button>
                 </div>
             </div>
-            <div className="col-3">
-            <button className="btn btn-primary ms-3" type="submit">Enviar</button>
-            </div>
-            <div className="col-12 mt-3">
-                <button className="btn btn-secondary" type="button"
-                    onClick={(e) => navigate(`/`)}>Cancelar</button>
-                <button className="btn btn-primary ms-3" type="submit">Guardar</button>
             </div>
         </form>
-    
+
     </>
 
 }

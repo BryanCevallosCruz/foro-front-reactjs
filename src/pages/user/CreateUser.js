@@ -24,18 +24,22 @@ function CreateUser() {
         }
     }
 
-    return <><div className="card text-center" style={{ backgroundColor: "#F3BD7C" }}>
+    return <><div className="card" style={{ backgroundColor: "#F3BD7C" }}>
         <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="col-md-6 offset-md-3 mt-3">
+            <div className="row justify-content-md-center">
+            <div className="col-md-6 mt-3">
                 <label htmlFor="nombre" className="form-label">Escribe tu nombre de usuario para ingresar al foro:</label>
                 <div className="input-group has-validation">
                     <input type="text" className="form-control" id="id" placeholder="Nombre"
                         onChange={e => handleChange(e)} required maxLength="30" />
                 </div>
             </div>
+            </div>
 
+            <div className="row justify-content-md-center text-center">
             <div className="col-md-auto mt-3 mb-3">
                 <button className="btn btn-primary" type="submit">Ingresar</button>
+            </div>
             </div>
         </form>
         </div>
