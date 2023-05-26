@@ -14,7 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>  
         <Route path="/" element={<Layout />}>
-          <Route index element={<Information />}></Route>
+          <Route index element={<CreateUser />}></Route>
           {routesPrivate.map((route) => (
             <Route
               exact

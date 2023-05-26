@@ -1,4 +1,5 @@
 import ListComments from "../pages/comments";
+import CreateComment from "../pages/foro/createComment";
 import CreateUser from "../pages/user/CreateUser";
 export default [
     {
@@ -12,7 +13,7 @@ export default [
         name: "Foro",
         key: "foro",
         route:"/foro",
-        component: <ListComments />,
+        component: <CreateComment />,
         showLink: true
     }
 ];

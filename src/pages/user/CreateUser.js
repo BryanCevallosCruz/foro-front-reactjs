@@ -24,23 +24,21 @@ function CreateUser() {
         }
     }
 
-    return <><div>Crear Usuario Para Ingresar al Foro</div>
-        <form className="row" onSubmit={(e) => handleSubmit(e)}>
-            <div className="col col-md-auto">
-                <label htmlFor="nombre" className="form-label">Nombre de Usuario:</label>
+    return <><div className="card text-center" style={{ backgroundColor: "#F3BD7C" }}>
+        <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="col-md-6 offset-md-3 mt-3">
+                <label htmlFor="nombre" className="form-label">Escribe tu nombre de usuario para ingresar al foro:</label>
                 <div className="input-group has-validation">
-                    <input type="text" className="form-control" id="id"
+                    <input type="text" className="form-control" id="id" placeholder="Nombre"
                         onChange={e => handleChange(e)} required maxLength="30" />
                 </div>
             </div>
 
-            <div className="col-12 mt-3">
-                <button className="btn btn-secondary" type="button"
-                    onClick={(e) => navigate(`/`)}>Cancelar</button>
-                <button className="btn btn-primary ms-3" type="submit">Guardar</button>
+            <div className="col-md-auto mt-3 mb-3">
+                <button className="btn btn-primary" type="submit">Ingresar</button>
             </div>
         </form>
-    
+        </div>
     </>
 
 }

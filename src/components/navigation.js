@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 const Navigation = () => {
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-dark bg-dark"
+      className="navbar navbar-expand-lg navbar-dark bg-info"
       aria-label="Eighth navbar example"
     >
       <div className="container">
         <a className="navbar-brand" href="/">
-          Foro
+          Mensajes en el foro
         </a>
         <button
           className="navbar-toggler"

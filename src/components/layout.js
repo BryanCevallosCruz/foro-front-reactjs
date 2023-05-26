@@ -8,7 +8,9 @@ const Layout = () => {
     <>
       <div className="container py-3">
         <header>
-          <Navigation />
+          <div className="card text-center text-white bg-info" >
+            <h4>Foro de comentarios</h4>
+          </div>
         </header>
         <main>
           <div className="row">
