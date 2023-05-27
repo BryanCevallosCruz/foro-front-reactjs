@@ -27,7 +27,7 @@ function CreateUser() {
     return <><div className="card" style={{ backgroundColor: "#F3BD7C" }}>
         <form onSubmit={(e) => handleSubmit(e)}>
             <div className="row justify-content-md-center">
-            <div className="col-md-6 mt-3">
+            <div className="col-md-8 mt-3">
                 <label htmlFor="nombre" className="form-label">Escribe tu nombre de usuario para ingresar al foro:</label>
                 <div className="input-group has-validation">
                     <input type="text" className="form-control" id="id" placeholder="Nombre"

@@ -5,8 +5,10 @@ import CommentList from "./commentList";
 function ForoMain() {
     return<>
         <CreateComment />
-        <Comment />
-        <CommentList />
+        <div className="card">
+            <CommentList />
+        </div>
+        
     </>
 }
 

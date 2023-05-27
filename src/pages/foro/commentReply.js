@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import htttpClient from "../../services/httpClient";
 
-function CreateComment() {
+function CommentReply() {
     const [comment, setComment] = useState({});
     const navigate = useNavigate();
 
@@ -16,14 +15,12 @@ function CreateComment() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (event.target.checkValidity() == true) {
-            window.location.reload();
-            //navigate(`/foro`)
+            navigate(`/foro`)
             // htttpClient.post(`/usuario`, user)
             //     .then(() => {
             //         navigate(`/foro`)
             //     })
         }
-        
     }
 
     return <>
@@ -47,4 +44,4 @@ function CreateComment() {
 
 }
 
-export default CreateComment;
+export default CommentReply;

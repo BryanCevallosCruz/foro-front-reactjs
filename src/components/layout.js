@@ -5,7 +5,7 @@ import Footer from "./footer";
 const Layout = () => {
   return (
     <>
-      <div className="container py-3">
+      <div className="container py-3" style={{ maxWidth: '50rem' }}>
         <header>
           <div className="card text-center text-white bg-info" >
             <h4>Foro de comentarios</h4>
