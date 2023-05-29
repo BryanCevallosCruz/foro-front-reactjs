@@ -1,3 +1,18 @@
+## Foro FRONT con REACT.JS
+Este proyecto consiste en utilizar un archivo json a manera de base de datos, el front se desarrolló con reacj.js. El back está en java. 
+
+El proyecto busca crear un foro de comentario con subniveles. 
+
+TO-DO: Delete los comentarios del subnivel uno y dos.
+
+TO-DO: UPDATE comentarios
+
+TO-DO: solucionar un error inicial cuando no encuentra el archivo de la base de datos, produce un error 500. La información se escribe correctamente, tiene que ver con el get en el useEffect.
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
