@@ -1,17 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import MyContext from "../../context/mycontext";
-import CommentList from "./commentList";
 import httpClient from "../../services/httpClient";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Comment from "./comment";
 
-
 function CreateComment() {
     const [comment, setComment] = useState([]);
     const [newComment, setNewComment] = useState("");
-
-
     
     useEffect(() => {
         httpClient.get(`/comments`)
@@ -27,10 +22,11 @@ function CreateComment() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (event.target.checkValidity() == true) {
+        if (event.target.checkValidity() === true) {
             const dateToday = new Date();
             const commentPost = {
                 name: MyContext.userName,
+                profilePhoto: MyContext.profilePhoto,
                 comment: newComment,
                 date: dateToday
             }
@@ -40,8 +36,7 @@ function CreateComment() {
                     setComment(updateComment);
                     setNewComment("");
                 })
-        }
-        
+        }   
     }
 
     return <>
@@ -77,7 +72,6 @@ function CreateComment() {
              
         </div>
     </>
-
 }
 
 export default CreateComment;

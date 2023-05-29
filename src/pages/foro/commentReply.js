@@ -1,22 +1,13 @@
 
-import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MyContext from "../../context/mycontext";
-import CommentList from "./commentList";
 import httpClient from "../../services/httpClient";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import Comment from "./comment";
-import CreateComment from "./createComment";
-import moment from 'moment';
-import 'moment/locale/es';
-moment.locale('es');
 
 function CommentReply(props) {
     const {com, level,idLast,replying} = props;
     const [comment, setComment] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const timeAgo = moment(com.date).fromNow();
-    
+   
     useEffect(() => {
         httpClient.get(`/comments`)
             .then((response) => {
@@ -30,29 +21,26 @@ function CommentReply(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (event.target.checkValidity() == true) {
+        if (event.target.checkValidity() === true) {
             const dateToday = new Date();
             const commentPost = {
                 name: MyContext.userName,
+                profilePhoto: MyContext.profilePhoto,
                 comment: newComment,
                 date: dateToday
             }
             
-            console.log(com.id)
-            if (level == 1){
+            if (level === 1){
                 var pathPut = `/comments/comment/${com.id}`
                 console.log("Ingreso al if ")
-                console.log(pathPut)
             } else {
                 var pathPut = `/comments/comment/${idLast}/${com.id}`
-                console.log(pathPut)
             }    
             httpClient.put(pathPut, commentPost)
                 .then(() => {
                     setNewComment("");               
                 })
-        }
-        
+        }   
     }
 
     return <>
@@ -74,7 +62,6 @@ function CommentReply(props) {
             </div>
         </form>
     </>
-
 }
 
 export default CommentReply;

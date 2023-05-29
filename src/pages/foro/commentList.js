@@ -13,8 +13,6 @@ function CommentList() {
             });
     }, []);
 
-
-
     return <>
         <div className="card px-2 py-2">
             <TransitionGroup>
@@ -31,7 +29,6 @@ function CommentList() {
              
         </div>
     </>
-
 }
 
 export default CommentList;

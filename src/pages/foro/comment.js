@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import CommentReply from "./commentReply";
-import CreateComment from "./createComment";
 import httpClient from "../../services/httpClient";
-import { useNavigate } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import moment from 'moment';
 import 'moment/locale/es';
@@ -38,7 +36,7 @@ function Comment(props) {
         <div className="container mt-2 Comment">
             <div className="row no-gutters">
                 <div className="col-1">
-                    Foto
+                   <img src={com.profilePhoto} className="image-configuration" alt="IMG" />
                 </div>
                 <div className="col-5 col-md-7 Comment-name">
                     {com.name}
@@ -107,9 +105,6 @@ function Comment(props) {
                         );
                     }
                 })()}
-
-
-
 
             </div>
 

@@ -108,3 +108,10 @@
   padding: 10px;
   background-color: lightblue;
 }
+
+.image-configuration {
+  width: 40px; 
+  height: 40px; 
+  object-fit: cover; 
+  border-radius: 50%; 
+}
