@@ -3,6 +3,8 @@ Este proyecto consiste en utilizar un archivo json a manera de base de datos, el
 
 El proyecto busca crear un foro de comentario con subniveles. 
 
+Corre en el puerto http://localhost:3000/
+
 TO-DO: Delete los comentarios del subnivel uno y dos.
 
 TO-DO: UPDATE comentarios
