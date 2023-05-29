@@ -3,37 +3,35 @@ import CommentReply from "./commentReply";
 import CreateComment from "./createComment";
 import httpClient from "../../services/httpClient";
 import { useNavigate } from "react-router-dom";
-
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import moment from 'moment';
+import 'moment/locale/es';
+moment.locale('es');
 
 function Comment(props) {
-    const { com, level: propLevel } = props;
-    const [answerList, setAnswerList] = useState([]);
+    const { com, level: propLevel, idLast: propIdLast } = props;
     const [level, setLevel] = useState(propLevel || 1);
+    const [idLast, setIdLast] = useState(propIdLast || com.id);
+  
+
     const [replying, setReplying] = useState(false);
-    const [comment, setComment] = useState([]);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        httpClient.get(`/comments`)
-            .then((response) => {
-                if (com.commentSub != null) {
-                    setComment(response.data);
-                }
-
-            });
-    }, []);
+    const timeAgo = moment(com.date).fromNow();
+   
 
     const handlerReply = () => {
-        setReplying(true);
-    }
-    var createReplyComment;
-    if (replying) {
-        createReplyComment = <CreateComment />
+        setReplying(!replying);
     }
 
-    const handlerDelete = ()=> {
-        httpClient.delete(`/comments/${com.id}`)
-        .then(()=>{});
+    var createReplyComment;
+    if (replying) {
+        createReplyComment = <CommentReply com={com} level={level} idLast={idLast} replying={replying} />
+    }
+
+
+    const handlerDelete = () => {
+        if (level === 1) {
+            httpClient.delete(`/comments/${com.id}`)
+        }
     }
 
     return <>
@@ -46,13 +44,18 @@ function Comment(props) {
                     {com.name}
                 </div>
                 <div className="col-2 col-md-1 Comment-actions">
-                    Editar
+                    {/* TO-DO: Editar */}
                 </div>
-                <div onClick={e=>handlerDelete(e)} className="col-2 col-md-1 Comment-actions">
-                    Eliminar
-                </div>
+                {(() => {
+                    if (level < 2) {
+                        return <div onClick={e => handlerDelete(e)} className="col-2 col-md-1 Comment-actions">
+                            Eliminar
+                        </div>
+                    }
+                })()}
+
                 <div className="col-2 Comment-date">
-                    Fecha
+                    {timeAgo}
                 </div>
             </div>
 
@@ -64,15 +67,15 @@ function Comment(props) {
 
             <div className="row">
                 {(() => {
-                    if (level<3) {
+                    if (level < 3) {
                         return (<>
-                            <div className="col-4 col-sm-3 col-md-2 offset-1 Comment-reply">
+                            <div onClick={e => handlerReply(e)} className="col-4 col-sm-3 col-md-2 offset-1 Comment-reply">
                                 Responder
                             </div>
                             <div className="col-4 col-sm-3 col-md-2 Comment-number-replies">
-                                Respuestas
+                            {com.commentSub && com.commentSub.length > 0 ? com.commentSub.length : 0} Respuestas
                             </div>
-                            </>
+                        </>
                         );
                     }
                 })()}
@@ -90,9 +93,16 @@ function Comment(props) {
                     if (com.commentSub != null) {
                         return (
                             <div className="col-11 offset-1">
-                                    {com.commentSub.map((com) =>
-                                        <Comment key={com.id} com={com} level={level+1}/>
-                                    )}
+                                <TransitionGroup>
+                                    {com.commentSub.map((com) => (
+                                        <CSSTransition
+                                            key={com.id}
+                                            classNames="comment"
+                                            timeout={300}
+                                        >
+                                            <Comment key={com.id} com={com} level={level + 1} idLast={idLast} />
+                                        </CSSTransition>))}
+                                </TransitionGroup>
                             </div>
                         );
                     }

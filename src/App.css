@@ -45,6 +45,7 @@
 .Comment-actions {
   color: #282c34;
   font-size: 80%;
+  cursor: pointer;
 }
 .Comment-date {
   color: #282c34;
@@ -66,6 +67,7 @@
 .Comment-reply {
   color: blue;
   font-size: 85%;
+  cursor: pointer;
 }
 .no-gutters {
   margin-right: 0;

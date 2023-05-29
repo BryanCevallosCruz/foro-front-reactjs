@@ -6,16 +6,20 @@ import httpClient from "../../services/httpClient";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Comment from "./comment";
 
+
 function CreateComment() {
     const [comment, setComment] = useState([]);
     const [newComment, setNewComment] = useState("");
+
+
     
     useEffect(() => {
         httpClient.get(`/comments`)
             .then((response) => {
                 setComment(response.data);
             });
-    }, []);
+
+    }, [comment]);
 
     const handleChange = (event) => {
         setNewComment(event.target.value);
@@ -24,9 +28,11 @@ function CreateComment() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (event.target.checkValidity() == true) {
+            const dateToday = new Date();
             const commentPost = {
                 name: MyContext.userName,
-                comment: newComment
+                comment: newComment,
+                date: dateToday
             }
             httpClient.post(`/comments`, commentPost)
                 .then(() => {

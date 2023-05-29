@@ -7,15 +7,11 @@ import httpClient from "../../services/httpClient";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Comment from "./comment";
 import CreateComment from "./createComment";
-import moment from 'moment';
-import 'moment/locale/es';
-moment.locale('es');
 
-function CommentReply(props) {
-    const {com, level,idLast,replying} = props;
+function CommentReplyS2(props) {
+    const {com} = props;
     const [comment, setComment] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const timeAgo = moment(com.date).fromNow();
     
     useEffect(() => {
         httpClient.get(`/comments`)
@@ -31,25 +27,13 @@ function CommentReply(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (event.target.checkValidity() == true) {
-            const dateToday = new Date();
             const commentPost = {
                 name: MyContext.userName,
-                comment: newComment,
-                date: dateToday
+                comment: newComment
             }
-            
-            console.log(com.id)
-            if (level == 1){
-                var pathPut = `/comments/comment/${com.id}`
-                console.log("Ingreso al if ")
-                console.log(pathPut)
-            } else {
-                var pathPut = `/comments/comment/${idLast}/${com.id}`
-                console.log(pathPut)
-            }    
-            httpClient.put(pathPut, commentPost)
+            httpClient.put(`/comments/comment/${com.id}/${com.commentSub.id}`, commentPost)
                 .then(() => {
-                    setNewComment("");               
+                    setNewComment(""); 
                 })
         }
         
