@@ -36,3 +36,73 @@
     transform: rotate(360deg);
   }
 }
+
+.Comment-name {
+  color: cornflowerblue;
+  font-weight: bold;
+}
+
+.Comment-actions {
+  color: #282c34;
+  font-size: 80%;
+}
+.Comment-date {
+  color: #282c34;
+  font-size: 80%;
+  text-align: right;
+}
+
+.Comment{
+  background-color: #EFE9F0 ;
+  border-radius: 10px;
+
+}
+
+.Comment-number-replies{
+  color: #9F91A3;
+  font-size: 75%;
+}
+
+.Comment-reply {
+  color: blue;
+  font-size: 85%;
+}
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+
+.comment-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.comment-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease-in, transform 300ms ease-in;
+}
+
+.comment-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.comment-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.comment-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: lightblue;
+}

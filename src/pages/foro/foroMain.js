@@ -1,14 +1,12 @@
 import CreateComment from "./createComment";
-import Comment  from "./comment";
+import Comment from "./comment";
 import CommentList from "./commentList";
+import { TransitionGroup } from "react-transition-group";
 
 function ForoMain() {
-    return<>
+    return <>
         <CreateComment />
-        <div className="card">
-            <CommentList />
-        </div>
-        
+        {/* <CommentList /> */}
     </>
 }
 

@@ -1,27 +1,39 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import htttpClient from "../../services/httpClient";
+import MyContext from "../../context/mycontext";
+import CommentList from "./commentList";
+import httpClient from "../../services/httpClient";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Comment from "./comment";
 
 function CreateComment() {
-    const [comment, setComment] = useState({});
-    const navigate = useNavigate();
+    const [comment, setComment] = useState([]);
+    const [newComment, setNewComment] = useState("");
+    
+    useEffect(() => {
+        httpClient.get(`/comments`)
+            .then((response) => {
+                setComment(response.data);
+            });
+    }, []);
 
     const handleChange = (event) => {
-        const target = event.target;
-        const value = target.type === "checkbox" ? target.checked : target.value;
-        const name = target.id;
-        setComment((nameCurrent) => ({ ...nameCurrent, [name]: value }));
+        setNewComment(event.target.value);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (event.target.checkValidity() == true) {
-            window.location.reload();
-            //navigate(`/foro`)
-            // htttpClient.post(`/usuario`, user)
-            //     .then(() => {
-            //         navigate(`/foro`)
-            //     })
+            const commentPost = {
+                name: MyContext.userName,
+                comment: newComment
+            }
+            httpClient.post(`/comments`, commentPost)
+                .then(() => {
+                    const updateComment = [...comment, commentPost];
+                    setComment(updateComment);
+                    setNewComment("");
+                })
         }
         
     }
@@ -32,7 +44,9 @@ function CreateComment() {
             <div className="row justify-content-md-center">
                 <div className="col-10">
                     <div className="input-group has-validation">
-                        <input type="text" className="form-control" id="id" placeholder="Ingrese su comentario"
+                        <input type="text" className="form-control" id="comment" 
+                            value={newComment}
+                            placeholder="Ingrese su comentario"
                             onChange={e => handleChange(e)} required maxLength="200" />
                     </div>
                 </div>
@@ -42,7 +56,20 @@ function CreateComment() {
             </div>
             </div>
         </form>
-
+        <div className="card px-2 py-2">
+            <TransitionGroup>
+            {comment.map((com) => (
+                <CSSTransition 
+                    key={com.id} 
+                    classNames="comment" 
+                    timeout={300} 
+                >
+                    <Comment key = {com.id} com = {com} />
+                </CSSTransition>
+            ))} 
+            </TransitionGroup>
+             
+        </div>
     </>
 
 }

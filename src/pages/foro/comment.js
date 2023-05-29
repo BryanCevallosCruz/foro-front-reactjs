@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CommentReply from "./commentReply";
 import CreateComment from "./createComment";
 import httpClient from "../../services/httpClient";
+import { useNavigate } from "react-router-dom";
 
 
 function Comment(props) {
@@ -10,6 +11,7 @@ function Comment(props) {
     const [level, setLevel] = useState(propLevel || 1);
     const [replying, setReplying] = useState(false);
     const [comment, setComment] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         httpClient.get(`/comments`)
@@ -28,26 +30,28 @@ function Comment(props) {
     if (replying) {
         createReplyComment = <CreateComment />
     }
+
+    const handlerDelete = ()=> {
+        httpClient.delete(`/comments/${com.id}`)
+        .then(()=>{});
+    }
+
     return <>
-        <div className="card mt-3" style={{ backgroundColor: "#85C7F1" }}>
-            <div className="row">
+        <div className="container mt-2 Comment">
+            <div className="row no-gutters">
                 <div className="col-1">
                     Foto
                 </div>
-                <div className="col-7">
+                <div className="col-5 col-md-7 Comment-name">
                     {com.name}
                 </div>
-                <div className="col-1">
-                    <button className="btn btn-link btn-sm">
-                        Editar
-                    </button>
+                <div className="col-2 col-md-1 Comment-actions">
+                    Editar
                 </div>
-                <div className="col-1">
-                    <button className="btn btn-link btn-sm">
-                        Eliminar
-                    </button>
+                <div onClick={e=>handlerDelete(e)} className="col-2 col-md-1 Comment-actions">
+                    Eliminar
                 </div>
-                <div className="col-2 text-center">
+                <div className="col-2 Comment-date">
                     Fecha
                 </div>
             </div>
@@ -60,18 +64,15 @@ function Comment(props) {
 
             <div className="row">
                 {(() => {
-                    if (true) {
-                        return (
-                            <div className="col-md-auto offset-1">
-                                <span>
-                                    <button onClick={handlerReply.bind(this)} className="btn btn-link btn-sm">
-                                        Responder
-                                    </button>
-                                </span>
-                                <span>
-                                    Respuestas
-                                </span>
+                    if (level<3) {
+                        return (<>
+                            <div className="col-4 col-sm-3 col-md-2 offset-1 Comment-reply">
+                                Responder
                             </div>
+                            <div className="col-4 col-sm-3 col-md-2 Comment-number-replies">
+                                Respuestas
+                            </div>
+                            </>
                         );
                     }
                 })()}
@@ -89,14 +90,10 @@ function Comment(props) {
                     if (com.commentSub != null) {
                         return (
                             <div className="col-11 offset-1">
-                                <div div className="container">
                                     {com.commentSub.map((com) =>
-                                        <Comment key={com.id} com={com} />
+                                        <Comment key={com.id} com={com} level={level+1}/>
                                     )}
-                                    Hola
-                                </div>
                             </div>
-
                         );
                     }
                 })()}
